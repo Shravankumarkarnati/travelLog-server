@@ -16,7 +16,7 @@ userApi.get("/", (req: Request, res: Response) => {
       const user = await userModel.findOne({ id: userId });
       res.json(user);
     } catch (err) {
-      res.json({ err: err.message });
+      res.json({ error: err.message });
     }
   })();
 });
@@ -27,7 +27,8 @@ userApi.post("/register", (req: Request, res: Response) => {
       const result = await validation(req.body);
       const user = new userModel({ ...result });
       await user.save();
-      res.json({ success: true });
+      res.cookie("jid", createRefreshToken(user.id), { httpOnly: true });
+      res.json({ success: "true", token: createjwt(user.id) });
       return;
     } catch (err) {
       res.json({ error: err.message });
@@ -39,6 +40,8 @@ userApi.post("/register", (req: Request, res: Response) => {
 userApi.post("/login", (req: Request, res: Response) => {
   (async () => {
     try {
+      const headers = req.headers;
+      console.log(headers);
       const { email, password } = req.body;
       const user = await userModel.findOne({ email });
       if (!user) {

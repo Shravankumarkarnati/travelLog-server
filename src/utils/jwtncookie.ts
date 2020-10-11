@@ -6,7 +6,7 @@ export const createjwt = (userId: any) => {
       userId,
     },
     process.env.JWTSECRET as string,
-    { expiresIn: "1h" }
+    { expiresIn: "15m" }
   );
 };
 
