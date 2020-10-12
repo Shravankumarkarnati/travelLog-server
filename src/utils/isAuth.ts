@@ -3,7 +3,6 @@ import userModel from "./../models/userSchema";
 
 export const isAuth = async (headers: any) => {
   const auth = headers["authorization"];
-  console.log(auth, "auth");
   if (!auth) return false;
   const token = auth.split(" ")[1];
   try {
