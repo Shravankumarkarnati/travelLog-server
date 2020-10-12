@@ -4,14 +4,13 @@ export interface ILog extends mongoose.Document {
   title: string;
   description?: string;
   visitedDate: Date;
-  userId: string;
   rating: Number;
   location: {
     type: Coordinates;
     coordinates: [longitude: Number, latitude: Number];
   };
   createdAt: Date;
-  visitedAt: Date;
+  updatedAt: Date;
 }
 
 export const logSchema = new mongoose.Schema(
@@ -25,10 +24,6 @@ export const logSchema = new mongoose.Schema(
     },
     visitedDate: {
       type: Date,
-      required: true,
-    },
-    userId: {
-      type: String,
       required: true,
     },
     rating: {

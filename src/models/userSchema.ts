@@ -4,9 +4,9 @@ import { ILog, logSchema } from "./logSchema";
 export interface IUser extends mongoose.Document {
   username: string;
   password: string;
-  logs: ILog;
+  logs: ILog[];
   createdAt: Date;
-  visitedAt: Date;
+  updatedAt: Date;
 }
 
 export const userSchema = new mongoose.Schema(

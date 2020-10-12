@@ -14,7 +14,12 @@ const PORT = process.env.PORT || 5000;
 
 const app = express();
 
-app.use(cors());
+app.use(
+  cors({
+    origin: "http://localhost:3000",
+    credentials: true,
+  })
+);
 app.use(helmet());
 app.use(morgan("common"));
 app.use(bodyParser.json());

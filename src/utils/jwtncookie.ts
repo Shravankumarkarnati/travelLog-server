@@ -10,12 +10,12 @@ export const createjwt = (userId: any) => {
   );
 };
 
-export const createRefreshToken = (userId: any) => {
+export const createRefreshToken = (userId: any, exp?: string) => {
   return jwt.sign(
     {
       userId,
     },
     process.env.REFRESHTOKENSECRET as string,
-    { expiresIn: "7d" }
+    { expiresIn: exp || "7d" }
   );
 };

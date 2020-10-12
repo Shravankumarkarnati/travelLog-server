@@ -1,14 +1,19 @@
 var jwt = require("jsonwebtoken");
+import userModel from "./../models/userSchema";
 
-export const isAuth = (headers: any) => {
+export const isAuth = async (headers: any) => {
   const auth = headers["authorization"];
-  // if (!auth) throw new Error("No authoriztion token sent");
-  if (!auth) throw new Error("Unauthorized");
+  console.log(auth, "auth");
+  if (!auth) return false;
   const token = auth.split(" ")[1];
   try {
     var decoded = jwt.verify(token, process.env.JWTSECRET);
-    return decoded.userId;
+    const user = await userModel.findOne({ id: decoded.userId });
+    if (user) {
+      return user;
+    }
+    return false;
   } catch (err) {
-    throw new Error("Invalid Token");
+    return false;
   }
 };
