@@ -1,5 +1,4 @@
 import express, { Response, Request, NextFunction } from "express";
-// import path from "path";
 import cors from "cors";
 import helmet from "helmet";
 import bodyParser from "body-parser";
@@ -16,7 +15,7 @@ const app = express();
 
 app.use(
   cors({
-    origin: "http://localhost:3000",
+    origin: process.env.CORSORIGIN,
     credentials: true,
   })
 );
